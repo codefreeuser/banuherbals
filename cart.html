@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart - Banu Herbals</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.logo-small {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-small img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #ffd966;
+    object-fit: cover;
+}
+
+.logo-small h3 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.back-btn {
+    background: #ff9800;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #f57c00;
+    transform: scale(1.02);
+}
+
+/* Cart Box */
+.box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #1b5e20;
+    margin: 15px 0;
+    font-size: 22px;
+}
+
+h2:first-child {
+    margin-top: 0;
+}
+
+/* Cart Item with Image */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+}
+
+.cart-item-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #f5f5f5;
+    border: 1px solid #eee;
+}
+
+.item-info {
+    flex: 2;
+    text-align: left;
+    min-width: 120px;
+}
+
+.item-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.item-price {
+    color: #1b5e20;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Quantity Controls in Cart */
+.cart-quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 30px;
+}
+
+.cart-qty-btn {
+    background: #ff9800;
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cart-qty-btn:hover {
+    background: #f57c00;
+    transform: scale(1.05);
+}
+
+.cart-qty-value {
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 25px;
+    text-align: center;
+    color: #333;
+}
+
+.item-total {
+    font-weight: bold;
+    color: #1b5e20;
+    font-size: 16px;
+    min-width: 80px;
+    text-align: right;
+}
+
+.remove-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.remove-btn:hover {
+    background: #cc0000;
+    transform: scale(1.02);
+}
+
+.total {
+    font-weight: bold;
+    font-size: 22px;
+    margin: 20px 0;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+    text-align: right;
+    color: #1b5e20;
+}
+
+.total span {
+    font-size: 26px;
+    color: #ff9800;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #1b5e20;
+    box-shadow: 0 0 5px rgba(27,94,32,0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Payment Options */
+.payment-options {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 15px;
+}
+
+.payment-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1b5e20;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.payment-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.upi-btn {
+    background: linear-gradient(45deg, #4285f4, #34a853);
+    color: white;
+}
+
+.upi-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(66,133,244,0.3);
+}
+
+.cod-btn {
+    background: linear-gradient(45deg, #ff9800, #f57c00);
+    color: white;
+}
+
+.cod-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(255,152,0,0.3);
+}
+
+.whatsapp-btn {
+    background: linear-gradient(45deg, #25D366, #128c7e);
+    color: white;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+}
+
+.btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.cancel {
+    flex: 1;
+    background: #ff9800;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cancel:hover {
+    background: #f57c00;
+    transform: scale(1.02);
+}
+
+.clear-cart-btn {
+    background: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.clear-cart-btn:hover {
+    background: #f57c00;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.empty-cart p {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.shop-now-btn {
+    background: linear-gradient(45deg, #ff9800, #ff6d00);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.shop-now-btn:hover {
+    transform: scale(1.03);
+}
+
+.contact-info {
+    background: #fff;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-info a {
+    color: #1b5e20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.05);
+    background: #128c7e;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.toast-message {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1b5e20;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        bottom: 50px;
+        opacity: 0;
+    }
+    to {
+        bottom: 100px;
+        opacity: 1;
+    }
+}
+
+/* UPI App Selection Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content h3 {
+    color: #1b5e20;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.upi-app-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.upi-app-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.upi-app-btn:hover {
+    background: #f5f5f5;
+    transform: scale(1.02);
+}
+
+.upi-app-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-close {
+    background: #ff9800;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    .header {
+        flex-direction: column;
+    }
+    .box {
+        padding: 15px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    .item-info {
+        text-align: center;
+    }
+    .item-total {
+        text-align: center;
+    }
+    .cart-quantity-control {
+        justify-content: center;
+    }
+    .payment-buttons {
+        flex-direction: column;
+    }
+    .btns {
+        flex-direction: column;
+    }
+    .whatsapp-float {
+        padding: 10px 14px;
+        font-size: 13px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo-small">
+        <img src="banulogo.jpg" alt="Banu Herbals" onerror="this.src='https://placehold.co/45x45?text=Banu'">
+        <h3>🛍️ Banu Herbals</h3>
+    </div>
+    <a href="products.html" class="back-btn">← Continue Shopping</a>
+</div>
+
+<div class="box" id="cartBox">
+    <!-- Cart content will be loaded here -->
+</div>
+
+<div class="contact-info">
+    <p>📞 <strong>8148212957</strong> | 📧 <strong>banuherbals@gmail.com</strong></p>
+    <p>📸 <a href="https://www.instagram.com/banu_herbals" target="_blank">Instagram @banu_herbals</a></p>
+</div>
+
+<!-- Floating WhatsApp Chat Button -->
+<a href="https://wa.me/918148212957" target="_blank" class="whatsapp-float">
+    💬 Chat with us
+</a>
+
+<!-- UPI App Selection Modal -->
+<div id="upiModal" class="modal">
+    <div class="modal-content">
+        <h3>💳 Select UPI App</h3>
+        <p style="color: #666; margin-bottom: 15px;">Choose your preferred UPI app to pay</p>
+        <div class="upi-app-buttons">
+            <button class="upi-app-btn" onclick="openUPIApp('gpay')">
+                <span style="font-size: 28px;">📱</span>
+                <span class="upi-app-name">Google Pay (GPay)</span>
+            </button>
+            <button class="upi-app-btn" onclick="openUPIApp('phonepe')">
+                <span style="font-size: 28px;">📱</span>
+                <span class="upi-app-name">PhonePe</span>
+            </button>
+            <button class="upi-app-btn" onclick="openUPIApp('paytm')">
+                <span style="font-size: 28px;">📱</span>
+                <span class="upi-app-name">Paytm</span>
+            </button>
+            <button class="upi-app-btn" onclick="openUPIApp('bhim')">
+                <span style="font-size: 28px;">📱</span>
+                <span class="upi-app-name">BHIM UPI</span>
+            </button>
+            <button class="upi-app-btn" onclick="openUPIApp('default')">
+                <span style="font-size: 28px;">🔄</span>
+                <span class="upi-app-name">Default UPI App</span>
+            </button>
+        </div>
+        <button class="modal-close" onclick="closeUPIModal()">Cancel</button>
+    </div>
+</div>
+
+<script>
+// Get cart from localStorage
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function showToast(message) {
+    let toast = document.createElement("div");
+    toast.className = "toast-message";
+    toast.innerHTML = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 2000);
+}
+
+// Update quantity in cart
+function updateCartQuantity(index, delta) {
+    let newQty = cart[index].quantity + delta;
+    if (newQty < 1) {
+        // Remove item if quantity becomes 0
+        cart.splice(index, 1);
+        showToast("🗑️ Item removed from cart!");
+    } else {
+        cart[index].quantity = newQty;
+        showToast(`🛒 ${cart[index].name} quantity: ${newQty}`);
+    }
+    
+    localStorage.setItem("cart", JSON.stringify(cart));
+    displayCart();
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    displayCart();
+    showToast("🗑️ Item removed from cart!");
+}
+
+function clearCart() {
+    if (confirm("Are you sure you want to clear your entire cart?")) {
+        cart = [];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        displayCart();
+        showToast("🧹 Cart cleared!");
+    }
+}
+
+function displayCart() {
+    let cartBox = document.getElementById("cartBox");
+    
+    if (cart.length === 0) {
+        cartBox.innerHTML = `
+            <div class="empty-cart">
+                <p>🛍️ Your cart is empty!</p>
+                <a href="products.html" class="shop-now-btn">Shop Now 🛍️</a>
+            </div>
+        `;
+        return;
+    }
+    
+    let total = 0;
+    let itemsHtml = `<h2>🛒 Your Order</h2>
+    <div id="cartItems">`;
+    
+    cart.forEach((item, index) => {
+        let itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        let imgSrc = item.img || 'https://placehold.co/70x70?text=Product';
+        
+        itemsHtml += `
+            <div class="cart-item">
+                <img src="${imgSrc}" class="cart-item-img" onerror="this.src='https://placehold.co/70x70?text=Product'">
+                <div class="item-info">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-price">₹${item.price} each</div>
+                </div>
+                <div class="cart-quantity-control">
+                    <button class="cart-qty-btn" onclick="updateCartQuantity(${index}, -1)">−</button>
+                    <span class="cart-qty-value">${item.quantity}</span>
+                    <button class="cart-qty-btn" onclick="updateCartQuantity(${index}, 1)">+</button>
+                </div>
+                <div class="item-total">₹${itemTotal}</div>
+                <button class="remove-btn" onclick="removeItem(${index})">🗑️ Remove</button>
+            </div>
+        `;
+    });
+    
+    itemsHtml += `</div>
+    <div class="total">Total Amount: <span>₹${total}</span></div>
+    <div style="text-align: right; margin-bottom: 15px;">
+        <button class="clear-cart-btn" onclick="clearCart()">🗑️ Clear Cart</button>
+    </div>
+    
+    <h2>📝 Delivery Details</h2>
+    
+    <input type="text" id="name" placeholder="Your Full Name">
+    <input type="tel" id="phone" placeholder="Phone Number (10 digits)">
+    <textarea id="address" rows="3" placeholder="Complete Delivery Address with Pincode"></textarea>
+    
+    <div class="payment-options">
+        <div class="payment-title">💳 Select Payment Method</div>
+        <div class="payment-buttons">
+            <button class="payment-btn upi-btn" onclick="showUPIModal()">
+                💰 Pay with UPI (GPay/PhonePe/Paytm)
+            </button>
+            <button class="payment-btn cod-btn" onclick="orderWithCOD()">
+                💵 Cash on Delivery
+            </button>
+            <button class="payment-btn whatsapp-btn" onclick="orderWithWhatsApp()">
+                📱 Order via WhatsApp
+            </button>
+        </div>
+    </div>
+    
+    <div class="btns">
+        <button class="cancel" onclick="goBack()">← Back to Products</button>
+    </div>`;
+    
+    cartBox.innerHTML = itemsHtml;
+}
+
+function goBack() {
+    window.location.href = "products.html";
+}
+
+// Get delivery details
+function getDeliveryDetails() {
+    let name = document.getElementById("name").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let address = document.getElementById("address").value.trim();
+    
+    if (name === "" || phone === "" || address === "") {
+        alert("⚠️ Please fill all delivery details!");
+        return null;
+    }
+    
+    if (phone.length < 10) {
+        alert("⚠️ Please enter a valid 10-digit phone number!");
+        return null;
+    }
+    
+    return { name, phone, address };
+}
+
+// Calculate total
+function calculateTotal() {
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+    });
+    return total;
+}
+
+// Save order data
+function saveOrderData(name, phone, address, paymentMethod) {
+    let total = calculateTotal();
+    let orderData = {
+        name: name,
+        phone: phone,
+        address: address,
+        total: total,
+        items: cart,
+        paymentMethod: paymentMethod,
+        date: new Date().toLocaleString()
+    };
+    localStorage.setItem("lastOrder", JSON.stringify(orderData));
+}
+
+// Show UPI app selection modal
+function showUPIModal() {
+    let details = getDeliveryDetails();
+    if (!details) return;
+    
+    window.tempDeliveryDetails = details;
+    document.getElementById("upiModal").style.display = "flex";
+}
+
+function closeUPIModal() {
+    document.getElementById("upiModal").style.display = "none";
+    window.tempDeliveryDetails = null;
+}
+
+function openUPIApp(appType) {
+    let details = window.tempDeliveryDetails;
+    if (!details) {
+        closeUPIModal();
+        alert("Please fill delivery details first!");
+        return;
+    }
+    
+    let total = calculateTotal();
+    let upiId = "thozhiyeunakaga@okhdfcbank";
+    let payeeName = "Banu Herbals";
+    let note = `Order from Banu Herbals - ₹${total}`;
+    
+    let upiUrl = "";
+    
+    switch(appType) {
+        case 'gpay':
+            upiUrl = `tez://upi/pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+            break;
+        case 'phonepe':
+            upiUrl = `phonepe://upi/pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+            break;
+        case 'paytm':
+            upiUrl = `paytmmp://upi/pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+            break;
+        case 'bhim':
+            upiUrl = `bhim://upi/pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+            break;
+        default:
+            upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=${encodeURIComponent(note)}`;
+    }
+    
+    saveOrderData(details.name, details.phone, details.address, "UPI");
+    closeUPIModal();
+    showToast("🔓 Opening UPI app...");
+    window.location.href = upiUrl;
+    
+    setTimeout(() => {
+        window.location.href = "order-success.html";
+    }, 3000);
+}
+
+function orderWithCOD() {
+    let details = getDeliveryDetails();
+    if (!details) return;
+    
+    let total = calculateTotal();
+    let orderItems = "";
+    cart.forEach((item, idx) => {
+        let itemTotal = item.price * item.quantity;
+        orderItems += `${idx + 1}. ${item.name} × ${item.quantity} = ₹${itemTotal}\n`;
+    });
+    
+    let message = `🛍️ BANU HERBALS - COD ORDER
+━━━━━━━━━━━━━━━━━━━━
+
+📦 ORDER SUMMARY
+━━━━━━━━━━━━━━━━━━━━
+${orderItems}
+━━━━━━━━━━━━━━━━━━━━
+💰 TOTAL: ₹${total}
+━━━━━━━━━━━━━━━━━━━━
+💳 PAYMENT: Cash on Delivery
+━━━━━━━━━━━━━━━━━━━━
+
+👤 CUSTOMER DETAILS
+━━━━━━━━━━━━━━━━━━━━
+📛 Name: ${details.name}
+📞 Phone: ${details.phone}
+🏠 Address: ${details.address}
+━━━━━━━━━━━━━━━━━━━━
+
+🙏 Please confirm my COD order.`;
+    
+    saveOrderData(details.name, details.phone, details.address, "COD");
+    
+    let whatsappNumber = "918148212957";
+    let url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+    
+    showToast("📱 Opening WhatsApp...");
+    
+    setTimeout(() => {
+        window.location.href = "order-success.html";
+    }, 2000);
+}
+
+function orderWithWhatsApp() {
+    let details = getDeliveryDetails();
+    if (!details) return;
+    
+    let total = calculateTotal();
+    let orderItems = "";
+    cart.forEach((item, idx) => {
+        let itemTotal = item.price * item.quantity;
+        orderItems += `${idx + 1}. ${item.name} × ${item.quantity} = ₹${itemTotal}\n`;
+    });
+    
+    let message = `🛍️ BANU HERBALS - NEW ORDER
+━━━━━━━━━━━━━━━━━━━━
+
+📦 ORDER SUMMARY
+━━━━━━━━━━━━━━━━━━━━
+${orderItems}
+━━━━━━━━━━━━━━━━━━━━
+💰 TOTAL: ₹${total}
+━━━━━━━━━━━━━━━━━━━━
+
+👤 CUSTOMER DETAILS
+━━━━━━━━━━━━━━━━━━━━
+📛 Name: ${details.name}
+📞 Phone: ${details.phone}
+🏠 Address: ${details.address}
+━━━━━━━━━━━━━━━━━━━━
+
+🙏 Thank you for ordering! I'll share payment details.`;
+    
+    saveOrderData(details.name, details.phone, details.address, "WhatsApp");
+    
+    let whatsappNumber = "918148212957";
+    let url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+    
+    showToast("📱 Opening WhatsApp...");
+    
+    setTimeout(() => {
+        window.location.href = "order-success.html";
+    }, 2000);
+}
+
+window.onclick = function(event) {
+    let modal = document.getElementById("upiModal");
+    if (event.target === modal) {
+        closeUPIModal();
+    }
+}
+
+displayCart();
+
+window.addEventListener('storage', function(e) {
+    if (e.key === 'cart') {
+        cart = JSON.parse(e.newValue) || [];
+        displayCart();
+    }
+});
+</script>
+
+</body>
+</html>

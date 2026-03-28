@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Order Confirmed - Banu Herbals</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Success Container */
+.success-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 25px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.success-icon span {
+    font-size: 45px;
+    color: white;
+}
+
+h1 {
+    color: #1b5e20;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.order-id {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.order-id strong {
+    color: #1b5e20;
+    font-size: 18px;
+}
+
+.order-details {
+    background: #f9f9f9;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.order-details h3 {
+    color: #1b5e20;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    margin-top: 10px;
+    border-top: 2px solid #e0e0e0;
+    font-weight: bold;
+    font-size: 18px;
+    color: #1b5e20;
+}
+
+.customer-details {
+    background: #f9f9f9;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.customer-details h3 {
+    color: #1b5e20;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.customer-detail {
+    padding: 5px 0;
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+}
+
+.customer-detail span:first-child {
+    font-weight: bold;
+    min-width: 60px;
+    color: #666;
+}
+
+.message {
+    background: #e8f5e9;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #2e7d32;
+}
+
+.message p {
+    margin: 5px 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn-home {
+    background: #1b5e20;
+    color: white;
+}
+
+.btn-home:hover {
+    background: #0f4d13;
+    transform: scale(1.02);
+}
+
+.btn-shop {
+    background: #ff9800;
+    color: white;
+}
+
+.btn-shop:hover {
+    background: #f57c00;
+    transform: scale(1.02);
+}
+
+.whatsapp-btn {
+    background: #25D366;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    width: 100%;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+    background: #128c7e;
+    transform: scale(1.02);
+}
+
+.contact-info {
+    background: #fff;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    border: 1px solid #eee;
+}
+
+.contact-info a {
+    color: #1b5e20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    .success-container {
+        padding: 25px 20px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    .buttons {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="success-container" id="successContainer">
+    <div class="success-icon">
+        <span>✓</span>
+    </div>
+    
+    <h1>🎉 Order Confirmed!</h1>
+    <p style="color: #666; margin-bottom: 15px;">Thank you for shopping with us!</p>
+    
+    <div class="order-id">
+        Order ID: <strong id="orderId">SAR-2024-001</strong>
+    </div>
+    
+    <div class="order-details" id="orderDetails">
+        <h3>📦 Order Summary</h3>
+        <div id="orderItems"></div>
+        <div class="order-total" id="orderTotal"></div>
+    </div>
+    
+    <div class="customer-details" id="customerDetails">
+        <h3>👤 Delivery Details</h3>
+        <div id="customerInfo"></div>
+    </div>
+    
+    <div class="message">
+        <p>📱 We've sent your order details to WhatsApp</p>
+        <p>⏰ Our team is confirmed your order</p>
+        <p>🚚 Delivery within 3-5 business days</p>
+        
+    </div>
+    
+    <div class="buttons">
+        <a href="index.html" class="btn btn-home">🏠 Back to Home</a>
+        <a href="products.html" class="btn btn-shop">🛍️ Continue Shopping</a>
+    </div>
+    
+    <button class="whatsapp-btn" onclick="resendWhatsApp()">
+        📱 Resend Order via WhatsApp
+    </button>
+    
+    <div class="contact-info">
+        <p>📞 <strong>8148212957</strong> | 📧 <strong>banuherbals@gmail.com</strong></p>
+        <p>📸 <a href="https://www.instagram.com/banu_herbals" target="_blank">Instagram @banu_herbals</a></p>
+    </div>
+</div>
+
+<script>
+// Get order data from localStorage
+let orderData = JSON.parse(localStorage.getItem("lastOrder")) || null;
+let cart = [];
+
+// Load cart from order data
+if (orderData && orderData.items) {
+    cart = orderData.items;
+} else {
+    // Try to get from cart if no order data
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+// Generate Order ID with SAR prefix
+function generateOrderId() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    let hours = String(date.getHours()).padStart(2, '0');
+    let minutes = String(date.getMinutes()).padStart(2, '0');
+    let seconds = String(date.getSeconds()).padStart(2, '0');
+    let random = Math.floor(Math.random() * 1000);
+    // Changed from BAN to SAR
+    return `SAR-${year}${month}${day}-${random}`;
+}
+
+// Calculate total
+function calculateTotal() {
+    let total = 0;
+    if (cart && cart.length > 0) {
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+        });
+    } else if (orderData && orderData.total) {
+        total = orderData.total;
+    }
+    return total;
+}
+
+// Display order details
+function displayOrderDetails() {
+    let orderId = generateOrderId();
+    document.getElementById("orderId").innerText = orderId;
+    
+    let total = calculateTotal();
+    
+    // Display order items
+    let orderItemsHtml = "";
+    let itemsList = cart.length > 0 ? cart : (orderData && orderData.items ? orderData.items : []);
+    
+    if (itemsList.length > 0) {
+        itemsList.forEach((item, idx) => {
+            let itemTotal = item.price * item.quantity;
+            orderItemsHtml += `
+                <div class="order-item">
+                    <span>${item.name} × ${item.quantity}</span>
+                    <span>₹${itemTotal}</span>
+                </div>
+            `;
+        });
+    } else {
+        orderItemsHtml = '<div class="order-item"><span>No items found</span><span>₹0</span></div>';
+    }
+    
+    document.getElementById("orderItems").innerHTML = orderItemsHtml;
+    document.getElementById("orderTotal").innerHTML = `
+        <span>Total Amount</span>
+        <span>₹${total}</span>
+    `;
+    
+    // Display customer details if available
+    if (orderData && orderData.name) {
+        document.getElementById("customerInfo").innerHTML = `
+            <div class="customer-detail">
+                <span>📛 Name:</span>
+                <span>${orderData.name}</span>
+            </div>
+            <div class="customer-detail">
+                <span>📞 Phone:</span>
+                <span>${orderData.phone}</span>
+            </div>
+            <div class="customer-detail">
+                <span>📍 Address:</span>
+                <span>${orderData.address}</span>
+            </div>
+            <div class="customer-detail">
+                <span>📅 Date:</span>
+                <span>${orderData.date || new Date().toLocaleString()}</span>
+            </div>
+        `;
+    } else {
+        document.getElementById("customerInfo").innerHTML = `
+            <div class="customer-detail">
+                <span>📛 Name:</span>
+                <span>Guest User</span>
+            </div>
+            <div class="customer-detail">
+                <span>📅 Date:</span>
+                <span>${new Date().toLocaleString()}</span>
+            </div>
+            <div class="customer-detail">
+                <span>💡 Tip:</span>
+                <span>Please contact us to confirm</span>
+            </div>
+        `;
+    }
+}
+
+// Resend WhatsApp message
+function resendWhatsApp() {
+    let total = calculateTotal();
+    let itemsList = cart.length > 0 ? cart : (orderData && orderData.items ? orderData.items : []);
+    let orderId = generateOrderId();
+    
+    // Create order items list
+    let orderItems = "";
+    itemsList.forEach((item, idx) => {
+        let itemTotal = item.price * item.quantity;
+        orderItems += `${idx + 1}. ${item.name} × ${item.quantity} = ₹${itemTotal}\n`;
+    });
+    
+    // Get customer details
+    let name = orderData && orderData.name ? orderData.name : "Guest User";
+    let phone = orderData && orderData.phone ? orderData.phone : "Not provided";
+    let address = orderData && orderData.address ? orderData.address : "Not provided";
+    
+    // Create WhatsApp message with SAR Order ID
+    let message = `🛍️ BANU HERBALS - ORDER CONFIRMATION
+━━━━━━━━━━━━━━━━━━━━
+
+🆔 Order ID: ${orderId}
+━━━━━━━━━━━━━━━━━━━━
+
+📦 ORDER SUMMARY
+━━━━━━━━━━━━━━━━━━━━
+${orderItems}
+━━━━━━━━━━━━━━━━━━━━
+💰 TOTAL: ₹${total}
+━━━━━━━━━━━━━━━━━━━━
+
+👤 CUSTOMER DETAILS
+━━━━━━━━━━━━━━━━━━━━
+📛 Name: ${name}
+📞 Phone: ${phone}
+🏠 Address: ${address}
+━━━━━━━━━━━━━━━━━━━━
+
+✅ Order Confirmed!
+🙏 Thank you for shopping with Banu Herbals.
+
+We will deliver your order soon. 💚`;
+    
+    // WhatsApp number
+    let whatsappNumber = "918148212957";
+    let url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+    
+    // Open WhatsApp
+    window.open(url, "_blank");
+    
+    // Show notification
+    alert("📱 Opening WhatsApp with order details...");
+}
+
+// Load page
+displayOrderDetails();
+
+// Optional: Clear cart after order (uncomment if needed)
+// setTimeout(() => {
+//     localStorage.removeItem("cart");
+// }, 2000);
+</script>
+
+</body>
+</html>

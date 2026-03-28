@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banu Herbals | Natural & Homemade Products</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
+    text-align: center;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    color: white;
+    padding: 20px 20px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ffd966;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    font-size: 13px;
+    opacity: 0.95;
+}
+
+/* Cart Icon */
+.cart-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ff9800;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+}
+
+.cart-icon:hover {
+    background: #f57c00;
+    transform: scale(1.05);
+}
+
+.cart-count {
+    background: #ff5722;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+/* Category Cards */
+.cat {
+    background: white;
+    margin: 15px 20px;
+    padding: 18px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.cat:hover {
+    background: #dcedc8;
+    transform: translateX(8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.cat span {
+    font-size: 28px;
+}
+
+/* View All Button */
+.view-all-btn {
+    background: linear-gradient(45deg, #ff9800, #ff6d00);
+    color: white;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 20px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: inline-block;
+}
+
+.view-all-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* Contact Info */
+.contact-info {
+    background: #fff;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #666;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.contact-info a {
+    color: #1b5e20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .header h2 {
+        font-size: 20px;
+    }
+    
+    .logo-img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .cart-icon {
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    
+    .cat {
+        margin: 10px 15px;
+        padding: 14px;
+        font-size: 16px;
+    }
+    
+    .view-all-btn {
+        padding: 10px 25px;
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <img src="banulogo.jpg" alt="Banu Herbals" class="logo-img" onerror="this.src='https://placehold.co/80x80?text=Banu'">
+    <h2>🌿 Banu's Herbal & Masala</h2>
+    <p>100% Homemade | Pure & Natural Products</p>
+    <a href="cart.html" class="cart-icon">🛒 Cart <span class="cart-count" id="cartCount">0</span></a>
+</div>
+
+<!-- Category - Herbal -->
+<div class="cat" onclick="goCategory('herbal')">
+    <span>🌿</span> Herbal Products
+</div>
+
+<!-- Category - Powder -->
+<div class="cat" onclick="goCategory('powder')">
+    <span>🌿</span> Face & Herbal Powder
+</div>
+
+<!-- Category - Hair Oil -->
+<div class="cat" onclick="goCategory('hair')">
+    <span>💧</span> Hair Oil
+</div>
+
+<!-- Category - Masala -->
+<div class="cat" onclick="goCategory('masala')">
+    <span>🌶️</span> Masala Products
+</div>
+
+<!-- Category - Health Mix -->
+<div class="cat" onclick="goCategory('health')">
+    <span>🥣</span> Health Mix
+</div>
+
+<!-- View All Button -->
+<button class="view-all-btn" onclick="viewAll()">
+    🛍️ View All Products
+</button>
+
+<!-- Contact Details -->
+<div class="contact-info">
+    <p>📞 <strong>8148212957</strong> | 📧 <strong>banuherbals@gmail.com</strong></p>
+    <p>📸 <a href="https://www.instagram.com/banu_herbals" target="_blank">Instagram @banu_herbals</a></p>
+    <p style="font-size: 12px; margin-top: 8px;">✅ 100% Homemade | ❤️ Made with Care</p>
+</div>
+
+<script>
+function goCategory(type){
+    localStorage.setItem("category", type);
+    window.location.href = "products.html";
+}
+
+function viewAll(){
+    localStorage.removeItem("category");
+    window.location.href = "products.html";
+}
+
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let cartCountSpan = document.getElementById("cartCount");
+    if (cartCountSpan) {
+        cartCountSpan.innerText = totalQty;
+    }
+}
+
+updateCartCount();
+
+window.addEventListener('storage', function() {
+    updateCartCount();
+});
+</script>
+
+</body>
+</html>

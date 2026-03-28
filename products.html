@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Products - Banu Herbals</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-small {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-small img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #ffd966;
+    object-fit: cover;
+}
+
+.logo-small h3 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+/* Right side buttons */
+.header-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.back-btn {
+    background: #ff9800;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.cart-header-btn {
+    background: #ff5722;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+    position: relative;
+}
+
+.cart-header-btn:hover, .back-btn:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+.cart-badge {
+    background: white;
+    color: #ff5722;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* SEARCH */
+.search {
+    padding: 10px;
+    background: white;
+    margin: 10px;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.search input {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+}
+
+.search input:focus {
+    border-color: #1b5e20;
+    box-shadow: 0 0 5px rgba(27,94,32,0.3);
+}
+
+/* GRID */
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 10px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.card h3 {
+    font-size: 14px;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.price {
+    color: #1b5e20;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Quantity Selector Styles */
+.quantity-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.qty-btn {
+    background: #ff9800;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    background: #f57c00;
+    transform: scale(1.05);
+}
+
+.qty-btn:active {
+    transform: scale(0.95);
+}
+
+.qty-value {
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+    color: #333;
+}
+
+.add-to-cart-btn {
+    background: #1b5e20;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 25px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.add-to-cart-btn:hover {
+    background: #0f4d13;
+    transform: scale(1.02);
+}
+
+.add-to-cart-btn.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.add-to-cart-btn.disabled:hover {
+    transform: none;
+}
+
+.buy-now-btn {
+    background: #ff9800;
+    margin-top: 5px;
+}
+
+.buy-now-btn:hover {
+    background: #f57c00;
+}
+
+.filter-info {
+    background: #e8f5e9;
+    padding: 8px 15px;
+    margin: 10px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #1b5e20;
+    display: inline-block;
+}
+
+.filter-bar {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.clear-filter {
+    background: #ff9800;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.no-products {
+    text-align: center;
+    padding: 60px 20px;
+    grid-column: span 2;
+    color: #666;
+}
+
+.contact-info {
+    background: #fff;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.contact-info a {
+    color: #1b5e20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.toast-message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1b5e20;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+@keyframes slideUp {
+    from {
+        bottom: -50px;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 10px 15px;
+    }
+    .logo-small img {
+        width: 35px;
+        height: 35px;
+    }
+    .logo-small h3 {
+        font-size: 14px;
+    }
+    .back-btn, .cart-header-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    .quantity-section {
+        gap: 8px;
+    }
+    .qty-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo-small">
+        <img src="banulogo.jpg" alt="Banu Herbals" onerror="this.src='https://placehold.co/45x45?text=Banu'">
+        <h3>🛍️ Banu Herbals</h3>
+    </div>
+    <div class="header-buttons">
+        <a href="index.html" class="back-btn">← Home</a>
+        <a href="cart.html" class="cart-header-btn">🛒 Cart <span class="cart-badge" id="cartCount">0</span></a>
+    </div>
+</div>
+
+<div class="search">
+    <input type="text" id="searchInput" placeholder="🔍 Search products by name..." onkeyup="searchProducts()">
+</div>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<div class="products" id="productsContainer"></div>
+
+<div class="contact-info">
+    <p>📞 <strong>8148212957</strong> | 📧 <strong>banuherbals@gmail.com</strong></p>
+    <p>📸 <a href="https://www.instagram.com/banu_herbals" target="_blank">Instagram @banu_herbals</a></p>
+</div>
+
+<script>
+// ==================== COMPLETE PRODUCT DATABASE ====================
+const products = [
+    // 🌿 HERBAL PRODUCTS - SOAPS
+    {name: "Charcoal Soap", price: 99, img: "charcoalsoap.jpg", cat: "herbal"},
+    {name: "Red Wine Soap", price: 99, img: "redwinesoap.jpg", cat: "herbal"},
+    {name: "Beetroot Soap", price: 99, img: "beetrootsoap.jpg", cat: "herbal"},
+    {name: "Goat Milk Soap", price: 99, img: "goatmilksoap.jpg", cat: "herbal"},
+    {name: "Potato Soap", price: 99, img: "potatosoap.jpg", cat: "herbal"},
+    {name: "Nalangumavu Soap", price: 99, img: "nalangumavsoap.jpg", cat: "herbal"},
+    
+    // 🌿 HERBAL - FACEWASH
+    {name: "Charcoal Facewash", price: 150, img: "charcoalfacewash.jpg", cat: "herbal"},
+    {name: "Red Wine Facewash", price: 150, img: "redwinefashwash.jpg", cat: "herbal"},
+    
+    // 🌿 HERBAL - TONERS
+    {name: "Toner", price: 149, img: "toner.jpg", cat: "herbal"},
+    {name: "Beetroot Toner", price: 149, img: "beetroottoner.jpg", cat: "herbal"},
+    
+    // 🌿 HERBAL - SERUMS
+    {name: "Under Eye Serum", price: 99, img: "undereyeserum.jpg", cat: "herbal"},
+    {name: "Eyebrow Serum", price: 99, img: "eyebrowserum.jpg", cat: "herbal"},
+    {name: "Saffron Serum", price: 199, img: "saffronserum.jpg", cat: "herbal"},
+    {name: "24 Gold Serum", price: 299, img: "24goldserum.jpg", cat: "herbal"},
+    
+    // 🌿 HERBAL - CREAMS
+    {name: "Night Cream", price: 199, img: "nightcream.jpg", cat: "herbal"},
+    {name: "Day Cream", price: 199, img: "daycream.jpg", cat: "herbal"},
+    {name: "Moisturizer", price: 199, img: "moisturizer.jpg", cat: "herbal"},
+    
+    // 🌿 HERBAL - LIP CARE
+    {name: "Lip Balm", price: 79, img: "lipbalm.jpg", cat: "herbal"},
+    {name: "Lip Scrub", price: 99, img: "lipscrub.jpg", cat: "herbal"},
+    
+    // 🌿 POWDER PRODUCTS
+    {name: "Face Pack", price: 99, img: "facepack.jpg", cat: "powder"},
+    {name: "Orange Pack", price: 99, img: "orangefacepack.jpg", cat: "powder"},
+    {name: "Manjal Pack", price: 99, img: "manjalpack.jpg", cat: "powder"},
+    {name: "Chemparuthi Pack", price: 99, img: "chemparuthipack.jpg", cat: "powder"},
+    {name: "Aavaram Poo Pack", price: 99, img: "aavarampoopack.jpg", cat: "powder"},
+    {name: "Poduthalai Pack", price: 120, img: "poduthalaipack.jpg", cat: "powder"},
+    {name: "Nalangumavu Mix", price: 99, img: "nalangumavumix.jpg", cat: "powder"},
+    {name: "Karuvepillai Face Pack", price: 129, img: "karuvepillaifacepack.jpg", cat: "powder"},
+    
+    // 💧 HAIR OIL PRODUCTS
+    {name: "Hair Combo Pack", price: 699, img: "combopack.jpg", cat: "hair"},
+    
+    // 🌶️ MASALA PRODUCTS
+    {name: "Chicken 65 Masala", price: 150, img: "chicken65masala.jpg", cat: "masala"},
+    {name: "Chicken Masala", price: 180, img: "chickenmasala.jpg", cat: "masala"},
+    {name: "Mutton Masala", price: 180, img: "muttonmasala.jpg", cat: "masala"},
+    {name: "Sambar Masala", price: 150, img: "sambarmasala.jpg", cat: "masala"},
+    {name: "Bhai Vittu Briyani Masala", price: 300, img: "bhaivittubriyanimasala.jpg", cat: "masala"},
+    
+    // 🥣 HEALTH MIX PRODUCTS
+    {name: "Ragi Choco Malt", price: 210, img: "ragichocomalt.jpg", cat: "health"},
+    {name: "Sirudhaniya Mix", price: 180, img: "sirudhaniyareadymix.jpg", cat: "health"}
+];
+
+// Store quantities for each product - STARTING FROM 0
+let productQuantities = {};
+
+// Initialize quantities to 0
+products.forEach((p, index) => {
+    productQuantities[index] = 0;
+});
+
+// Get category from localStorage
+let currentCategory = localStorage.getItem("category");
+
+// Category display names
+const categoryNames = {
+    herbal: "🌿 Herbal Products",
+    powder: "🌿 Face & Herbal Powder",
+    hair: "💧 Hair Oil",
+    masala: "🌶️ Masala Products",
+    health: "🥣 Health Mix"
+};
+
+// Update cart count display
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let cartCountSpan = document.getElementById("cartCount");
+    if (cartCountSpan) {
+        cartCountSpan.innerText = totalQty;
+    }
+}
+
+// Show toast notification
+function showToast(message) {
+    let toast = document.createElement("div");
+    toast.className = "toast-message";
+    toast.innerHTML = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 2000);
+}
+
+// Update cart in localStorage based on all product quantities
+function updateCartFromQuantities() {
+    let cart = [];
+    
+    products.forEach((product, index) => {
+        let quantity = productQuantities[index];
+        if (quantity > 0) {
+            cart.push({
+                name: product.name,
+                price: product.price,
+                img: product.img,
+                quantity: quantity
+            });
+        }
+    });
+    
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+}
+
+// Update quantity display and auto-update cart
+function updateQuantity(productIndex, delta) {
+    let newQty = productQuantities[productIndex] + delta;
+    if (newQty < 0) newQty = 0;
+    productQuantities[productIndex] = newQty;
+    
+    // Update quantity display
+    let qtySpan = document.getElementById(`qty-${productIndex}`);
+    if (qtySpan) {
+        qtySpan.innerText = newQty;
+    }
+    
+    // Update Add to Cart button state
+    let addBtn = document.getElementById(`add-btn-${productIndex}`);
+    if (addBtn) {
+        if (newQty === 0) {
+            addBtn.classList.add("disabled");
+        } else {
+            addBtn.classList.remove("disabled");
+        }
+    }
+    
+    // AUTO UPDATE CART - No need to click Add to Cart button
+    updateCartFromQuantities();
+    
+    // Show toast for quantity change
+    if (delta > 0) {
+        showToast(`➕ ${products[productIndex].name} quantity: ${newQty}`);
+    } else if (delta < 0 && newQty >= 0) {
+        if (newQty === 0) {
+            showToast(`🗑️ ${products[productIndex].name} removed from cart`);
+        } else {
+            showToast(`➖ ${products[productIndex].name} quantity: ${newQty}`);
+        }
+    }
+}
+
+// Manual Add to Cart button (syncs with current quantity)
+function addToCart(productIndex) {
+    let quantity = productQuantities[productIndex];
+    if (quantity <= 0) {
+        showToast(`⚠️ Please select quantity first!`);
+        return;
+    }
+    
+    // Cart is already updated via quantity changes, just show confirmation
+    showToast(`✅ ${quantity} × ${products[productIndex].name} already in cart!`);
+}
+
+// Buy Now function
+function buyNow(productIndex) {
+    let quantity = productQuantities[productIndex];
+    if (quantity <= 0) {
+        showToast(`⚠️ Please select quantity first!`);
+        return;
+    }
+    // Cart is already updated, just redirect
+    window.location.href = "cart.html";
+}
+
+// Display products
+function displayProducts() {
+    const container = document.getElementById("productsContainer");
+    const filterBar = document.getElementById("filterBar");
+    
+    // Get current category from localStorage
+    currentCategory = localStorage.getItem("category");
+    
+    let filteredProducts = products;
+    
+    // Filter by category if selected
+    if (currentCategory && currentCategory !== "all" && currentCategory !== "null") {
+        filteredProducts = products.filter(p => p.cat === currentCategory);
+        filterBar.innerHTML = `
+            <div class="filter-info">
+                🔍 Showing: <strong>${categoryNames[currentCategory] || currentCategory.toUpperCase()}</strong>
+                <button class="clear-filter" onclick="clearFilter()">✖ Show All</button>
+            </div>
+        `;
+    } else {
+        filterBar.innerHTML = "";
+        // Clear the category from localStorage if showing all
+        if (currentCategory === "all" || !currentCategory) {
+            localStorage.removeItem("category");
+        }
+    }
+    
+    if (filteredProducts.length === 0) {
+        container.innerHTML = `<div class="no-products">😊 No products found in this category!<br><a href="index.html" style="color:#1b5e20;">← Back to Home</a></div>`;
+        return;
+    }
+    
+    let html = "";
+    filteredProducts.forEach((product, idx) => {
+        let originalIndex = products.findIndex(p => p.name === product.name);
+        let currentQty = productQuantities[originalIndex] || 0;
+        let isDisabled = currentQty === 0 ? "disabled" : "";
+        html += `
+            <div class="card" data-name="${product.name.toLowerCase()}" data-price="${product.price}" data-cat="${product.cat}">
+                <img src="${product.img}" alt="${product.name}" onerror="this.src='https://placehold.co/300x200?text=${product.name.replace(/ /g, '+')}'">
+                <h3>${product.name}</h3>
+                <p class="price">₹${product.price}</p>
+                
+                <!-- Quantity Selector -->
+                <div class="quantity-section">
+                    <button class="qty-btn" onclick="updateQuantity(${originalIndex}, -1)">−</button>
+                    <span class="qty-value" id="qty-${originalIndex}">${currentQty}</span>
+                    <button class="qty-btn" onclick="updateQuantity(${originalIndex}, 1)">+</button>
+                </div>
+                
+                <!-- Add to Cart Button (now syncs with quantity, but cart updates automatically) -->
+                <button class="add-to-cart-btn ${isDisabled}" id="add-btn-${originalIndex}" onclick="addToCart(${originalIndex})">
+                    🛒 Add to Cart
+                </button>
+                
+                <!-- Buy Now Button -->
+                <button class="add-to-cart-btn buy-now-btn" onclick="buyNow(${originalIndex})">
+                    ⚡ Buy Now
+                </button>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// Search function
+function searchProducts() {
+    const term = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+        if (card.innerText.toLowerCase().includes(term)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+// Clear filter and show all products
+function clearFilter() {
+    localStorage.removeItem("category");
+    window.location.href = "products.html";
+}
+
+// Load cart data into productQuantities on page load
+function loadCartToQuantities() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+    // Reset all quantities to 0
+    products.forEach((p, index) => {
+        productQuantities[index] = 0;
+    });
+    
+    // Load quantities from cart
+    cart.forEach(cartItem => {
+        let productIndex = products.findIndex(p => p.name === cartItem.name);
+        if (productIndex !== -1) {
+            productQuantities[productIndex] = cartItem.quantity;
+        }
+    });
+}
+
+// Initialize page
+function init() {
+    loadCartToQuantities();
+    displayProducts();
+    updateCartCount();
+}
+
+// Load products on page load
+init();
+
+// Listen for storage changes to update cart count from other pages
+window.addEventListener('storage', function(e) {
+    if (e.key === 'cart') {
+        loadCartToQuantities();
+        displayProducts();
+        updateCartCount();
+    }
+});
+</script>
+
+</body>
+</html>
